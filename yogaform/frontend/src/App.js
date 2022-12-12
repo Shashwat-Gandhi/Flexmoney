@@ -1,5 +1,5 @@
 import './App.css';
-import axios from 'axios'
+// import axios from 'axios'
 import {useState} from 'react'
 
 const App = () => {
@@ -9,6 +9,11 @@ const App = () => {
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [userBatch, setUserBatch] = useState(0);
   const submitForm = (event) => {
+    if(age < 18 || age > 65) {
+      alert('Sorry, you need to be between 18 to 65 years of age');
+      return;
+    }
+    alert(userName)
     
   }
 
@@ -20,10 +25,10 @@ const App = () => {
         <div className="container">
           <form >
             <p>Welcome</p>
-            <input type="text" placeholder="your name" onChange={(event)=>{setUserName(event.target.value)}}/>{userName}<br/>
-            <input type="email" placeholder="Email" onChange={(event)=>{setEmail(event.target.value)}}/><br/>
-            <input type="number" placeholder="phone number" onChange={(event)=>{setPhoneNumber(event.target.value)}}/> <br/>
-            <input type="number" placeholder="age" onChange={(event)=>{setAge(event.target.value)}}/> <br/>
+            <input type="text" placeholder="your name" onChange={(event)=>{setUserName(event.target.value)}} value={userName}/><br/>
+            <input type="email" placeholder="Email" onChange={(event)=>{setEmail(event.target.value)}} value={email}/><br/>
+            <input type="number" placeholder="phone number" onChange={(event)=>{setPhoneNumber(event.target.value)}} value={phoneNumber}/> <br/>
+            <input type="number" placeholder="age" onChange={(event)=>{setAge(event.target.value)}} value={age}/> <br/>
             <label htmlFor="batch">Batch:&nbsp;&nbsp;&nbsp;&nbsp;</label>
               <select id="batches" name="batches" value={userBatch} onChange={(event) => {setUserBatch(event.target.value)}}>
                 <option value="0">6 AM to 7 AM</option>
@@ -32,7 +37,7 @@ const App = () => {
                 <option value="3">5 PM to 6 PM</option>
               </select><br/>
             <input type="button" value="Submit" onClick={submitForm}/><br/>
-            <a href="#">Terms and Conditions</a>
+            <a href="http://localhost:5000/TandC">Terms and Conditions</a>
           </form>
 
           <div className="drops">
