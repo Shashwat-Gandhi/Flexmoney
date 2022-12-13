@@ -20,7 +20,7 @@ app.get('/', (req,res) => {
             console.log(err)
         })
     }
-    res.send('ok')
+    res.send(mongoose.connection.readyState)
 })
 
 app.use('/api/v1', userRouter);
