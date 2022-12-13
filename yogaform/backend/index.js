@@ -14,7 +14,7 @@ require('dotenv').config()
 
 app.get('/', (req,res) => {
     console.log('works')
-    console.log(process.env.DB_URI)
+    console.log(mongoose.connection.readyState)
     res.send('ok')
 })
 
