@@ -92,6 +92,9 @@ form input[type="button"]:hover {
 form input[type="button"]:active {
   background: rgba(255, 255, 255, 0.2);
 }
+form input[type="button"]:disabled {
+  background: rgba(10, 10, 10, 0.2);
+}
 form:hover {
   margin: 4px;
 }

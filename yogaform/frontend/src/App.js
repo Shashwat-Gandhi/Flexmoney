@@ -1,43 +1,51 @@
 import './App.css';
-// import axios from 'axios'
+import axiosInstance from './axiosInstance'
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 const App = () => {
-  const [userName, setUserName] = useState('');
-  const [age, setAge] = useState(0);
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState(0);
-  const [userBatch, setUserBatch] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const navigate = useNavigate();
+
   const submitForm = (event) => {
-    if(age < 18 || age > 65) {
-      alert('Sorry, you need to be between 18 to 65 years of age');
+   axiosInstance.post('/api/v1/enterUser',{userData: {email: email, phoneNumber: phoneNumber}}).then((resp) => {
+    console.log(resp)
+    if(!resp.data.userEntered) {
+      alert(resp.data.error)
       return;
     }
-    alert(userName)
+    localStorage.setItem('email', email);
+    localStorage.setItem('phoneNumber', phoneNumber)
+    if(resp.data.userThere) {
+      console.log(resp)
+      // router to batch select page
+      const {userAge, userName, batch, paymentDone} = resp.data.userData;
+      localStorage.setItem('userAge', userAge);
+      localStorage.setItem('userName', userName);
+      localStorage.setItem('batch', batch);
+      localStorage.setItem('paymentDone', paymentDone);
+      navigate('/batchSelect')
+    } else {
+      // route to ask name page
+      navigate('/askName')
+    }
+   })
+  
     
   }
 
   return (
     <div className="App">
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/> 
 
         <div className="container">
           <form >
             <p>Welcome</p>
-            <input type="text" placeholder="your name" onChange={(event)=>{setUserName(event.target.value)}} value={userName}/><br/>
             <input type="email" placeholder="Email" onChange={(event)=>{setEmail(event.target.value)}} value={email}/><br/>
-            <input type="number" placeholder="phone number" onChange={(event)=>{setPhoneNumber(event.target.value)}} value={phoneNumber}/> <br/>
-            <input type="number" placeholder="age" onChange={(event)=>{setAge(event.target.value)}} value={age}/> <br/>
-            <label htmlFor="batch">Batch:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-              <select id="batches" name="batches" value={userBatch} onChange={(event) => {setUserBatch(event.target.value)}}>
-                <option value="0">6 AM to 7 AM</option>
-                <option value="1">7AM to 8AM</option>
-                <option value="2">8 AM to 9AM</option>
-                <option value="3">5 PM to 6 PM</option>
-              </select><br/>
-            <input type="button" value="Submit" onClick={submitForm}/><br/>
-            <a href="http://localhost:5000/TandC">Terms and Conditions</a>
+            <input type="number" placeholder="Phone number" onChange={(event)=>{setPhoneNumber(event.target.value)}} value={(phoneNumber == 0 ? '': phoneNumber)}/> <br/>
+            <input type="button" value="Enter" onClick={submitForm}/><br/>
+            <a href="https://flexmoney-umber.vercel.app//TandC">Terms and Conditions</a>
           </form>
 
           <div className="drops">

@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: true,
+        required: false,
     },
     phoneNumber: {
         type: String,
@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
     },
     batch: {
         type: Number,
-        required: true,
+        required: false,
+        default: -1
     },
     paymentDone: {
         type: Boolean,
@@ -30,9 +31,9 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true
+        required: false
     }
 })
 
 const userModel = mongoose.model('User', userSchema)
-export default userModel
+module.exports = userModel

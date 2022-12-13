@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AskName from './AskName';
+import BatchAndPayment from './BatchAndPayment';
+import NoPage from './NoPage';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App/>}/>
+      <Route path="/askName" element={<AskName/>}/>
+      <Route path="/batchSelect" element={<BatchAndPayment/>}/>
+      <Route path="*" element={<NoPage/>}/>
+    </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
