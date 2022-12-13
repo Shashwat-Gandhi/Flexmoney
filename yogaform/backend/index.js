@@ -14,6 +14,7 @@ require('dotenv').config()
 
 app.get('/', (req,res) => {
     console.log('works')
+    console.log(process.env.DB_URI)
     res.send('ok')
 })
 
