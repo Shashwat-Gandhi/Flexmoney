@@ -15,6 +15,11 @@ require('dotenv').config()
 app.get('/', (req,res) => {
     console.log('works')
     console.log(mongoose.connection.readyState)
+    if(mongoose.connection.readyState == 0) {
+        mongoose.connect(process.env.DB_URI).catch((err) => {
+            console.log(err)
+        })
+    }
     res.send('ok')
 })
 
