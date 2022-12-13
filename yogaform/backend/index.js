@@ -24,7 +24,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/api/v1', userRouter);
-
+mongoose.set('strictQuery', false)
 app.listen(process.env.PORT, () => {
     console.log('Listening on port: 5000')
     mongoose.connect(process.env.DB_URI, () => {
