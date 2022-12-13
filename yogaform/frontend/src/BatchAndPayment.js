@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from './axiosInstance';
 
 
 const BatchAndPayment = () => {
     const [userBatch, setUserBatch] = useState(0);
-    const [alreadyEnrolled, setAlreadyEnrolled] = useState(correctAlreadyEnrolled())
+    const [alreadyEnrolled, setAlreadyEnrolled] = useState(false)
     const [paid, setPaid] = useState((localStorage.getItem('paymentDone')==="true"? true: false));
 
     const correctAlreadyEnrolled = () => {
@@ -15,7 +15,10 @@ const BatchAndPayment = () => {
             return false;
         }
     }
-    
+    // setUserBatch(correctAlreadyEnrolled())
+    useEffect(() => {
+        setAlreadyEnrolled(correctAlreadyEnrolled())
+    }, [])
     const completePayment = () => {
         axiosInstance.post('/api/v1/completePayment',{email: localStorage.getItem('email')}).then(
             (resp) => {
