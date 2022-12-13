@@ -18,6 +18,10 @@ const BatchAndPayment = () => {
     // setUserBatch(correctAlreadyEnrolled())
     useEffect(() => {
         setAlreadyEnrolled(correctAlreadyEnrolled())
+        var x = localStorage.getItem('batch')
+        if(x !== "undefined" && x != "-1") {
+            setUserBatch(x);
+        }
     }, [])
     const completePayment = () => {
         axiosInstance.post('/api/v1/completePayment',{email: localStorage.getItem('email')}).then(
