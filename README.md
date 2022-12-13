@@ -14,18 +14,21 @@ User is allowed to pay later in the month
 Workflow of the site: 
 First is the homepage of the site, which asks for email address and phone number to register the user.
 If any one is already found in the database, it won't proceed further so make sure to give both of them different each time.
-
+[![Home page: App.js](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im1.png "Home page: App.js")](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im1.png "Home page: App.js")
 
 
 Once you are registered on the site, if you are the first time visitor, it takes you to the second page where it asks you about your name and age.
 If the age is not between 18-65 years , it won't proceed further.
 This process is just to take all the details of the user for the first time. 
+[![Second page for Name and Age](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im3.png "Second page for Name and Age")](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im3.png "Second page for Name and Age")
 
 After this is the final page for enrolling in any one of the four batches and completing the payment.
 Till the point you have not enrolled in any batch, you will be able to select any batch in the select menu and click on enroll to finalize your submission.
 
 Only after you have enrolled in a batch, you are allowed to pay for the course.
 To do that just click the button 'Yet to pay' and it will change to 'Already paid' signifying that the payment was successful.
+
+[![Final Page](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im2.png "Final Page")](https://github.com/Shashwat-Gandhi/Flexmoney/blob/master/im2.png "Final Page")
 
 Implementation:
 To implement the above workflow, I have used React.js framework for the frontend and Node.js for the backend. For the database, I have used MongoDB and connected to it using the mongoose library.
