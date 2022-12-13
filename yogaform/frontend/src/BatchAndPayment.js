@@ -4,17 +4,17 @@ import axiosInstance from './axiosInstance';
 
 const BatchAndPayment = () => {
     const [userBatch, setUserBatch] = useState(0);
-    var alreadyEnrolled = false;
-    const setAlreadyEnrolled = () => {
+    const [alreadyEnrolled, setAlreadyEnrolled] = useState(correctAlreadyEnrolled())
+    const [paid, setPaid] = useState((localStorage.getItem('paymentDone')==="true"? true: false));
+
+    const correctAlreadyEnrolled = () => {
         const enrolledBatch = localStorage.getItem('batch')
         if(enrolledBatch == "0" || enrolledBatch == "1" || enrolledBatch == "2" || enrolledBatch == "3") {
-            alreadyEnrolled = true;
+            return true
         } else {
-            alreadyEnrolled = false;
+            return false;
         }
     }
-    setAlreadyEnrolled();
-    var paid = localStorage.getItem('paymentDone')==="true"? true: false;
     
     const completePayment = () => {
         axiosInstance.post('/api/v1/completePayment',{email: localStorage.getItem('email')}).then(
@@ -23,8 +23,7 @@ const BatchAndPayment = () => {
                     alert(resp.data.error)
                     return;
                 }
-                localStorage.setItem('paymentDone', true)
-                paid = true;
+                setPaid(true)
             }
         )
     }
@@ -38,7 +37,7 @@ const BatchAndPayment = () => {
                 return;
             }
             localStorage.setItem('batch', userBatch)
-            setAlreadyEnrolled();
+            setAlreadyEnrolled(true);
         })
     }
 
