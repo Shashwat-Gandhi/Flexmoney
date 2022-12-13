@@ -4,17 +4,17 @@ import axiosInstance from './axiosInstance';
 
 const BatchAndPayment = () => {
     const [userBatch, setUserBatch] = useState(0);
-    var alreadyEnrolled = true;
+    var alreadyEnrolled = false;
     const setAlreadyEnrolled = () => {
         const enrolledBatch = localStorage.getItem('batch')
-        if(enrolledBatch >= 0 && enrolledBatch <= 3) {
+        if(enrolledBatch == "0" || enrolledBatch == "1" || enrolledBatch == "2" || enrolledBatch == "3") {
             alreadyEnrolled = true;
         } else {
             alreadyEnrolled = false;
         }
     }
     setAlreadyEnrolled();
-    var paid = localStorage.getItem('paymentDone')==="false"? false: true;
+    var paid = localStorage.getItem('paymentDone')==="true"? true: false;
     
     const completePayment = () => {
         axiosInstance.post('/api/v1/completePayment',{email: localStorage.getItem('email')}).then(
